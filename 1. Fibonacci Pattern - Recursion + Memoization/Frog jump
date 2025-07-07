@@ -1,0 +1,10 @@
+class Solution:
+    def canCross(self, stones: List[int]) -> bool:
+        dp={stone: set() for stone in stones}
+        dp[0]={0}
+        for stone in stones:
+            for jump in dp[stone]:
+                for jump_dis in [jump-1,jump,jump+1]:
+                    if jump_dis>0 and jump_dis + stone in dp:
+                        dp[stone+jump_dis].add(jump_dis)
+        return len(dp[stones[-1]])>0
